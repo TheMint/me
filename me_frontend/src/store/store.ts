@@ -5,6 +5,7 @@ import counterReducer from "./generalSlice";
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
+    [meApi.reducerPath]: meApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(meApi.middleware),
