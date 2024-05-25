@@ -17,18 +17,31 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import include, path
-from rest_framework import routers
+from rest_framework.routers import DefaultRouter
 from about.views import ProfileViewSet
-from rest_framework_swagger.views import get_swagger_view
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
 
-schema_view = get_swagger_view(title="Swagger API")
-
-router = routers.DefaultRouter()
+router = DefaultRouter()
 router.register(r"profile", ProfileViewSet)
 
+schema_view = get_schema_view(
+    openapi.Info(
+        title="Me API",
+        default_version="v1",
+        description="App API",
+    ),
+    public=True,
+)
+
+
 urlpatterns = [
-    path("api", schema_view),
     path("admin/", admin.site.urls),
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
+    path(
+        "api/",
+        schema_view.with_ui("swagger", cache_timeout=0),
+        name="schema-swagger-ui",
+    ),
     path("", include(router.urls)),
 ]
