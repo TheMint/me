@@ -1,5 +1,9 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
+env/
+.vscode/
+node_modules/
+me_frontend/node_modules/
 *.py[cod]
 *$py.class
 
